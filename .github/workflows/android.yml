@@ -3,6 +3,7 @@ name: Build Android App
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -22,7 +23,7 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Build Debug APK
-        run: gradle assembleDebug
+        run: ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4

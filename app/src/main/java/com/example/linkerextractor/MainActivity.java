@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         tvData.setText("Loading...");
         tvData.setTextIsSelectable(true);
         tvData.setTextSize(10);
-        tvData.setFontFamily("monospace");
+        tvData.setTypeface(android.graphics.Typeface.MONOSPACE);
         
         Button btnRefresh = new Button(this);
         btnRefresh.setText("Refresh");

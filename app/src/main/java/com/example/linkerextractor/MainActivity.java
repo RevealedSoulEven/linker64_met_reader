@@ -70,20 +70,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void exportData() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) 
-                != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-
-        new Thread(() -> {
+    new Thread(() -> {
+        try {
             String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
             String filename = "linker_data_" + timestamp + ".txt";
-            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), filename);
-            
+
+            File file = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), filename);
+
             final String result = exportDataToFile(file.getAbsolutePath());
-            runOnUiThread(() -> tvData.setText(result + "\n\n" + collectAllLinkerData()));
-        }).start();
+
+            runOnUiThread(() -> tvData.setText(result + "\n\nSaved to:\n" + file.getAbsolutePath()));
+        } catch (Exception e) {
+            runOnUiThread(() -> tvData.setText("Export failed: " + e.getMessage()));
+        }
+    }).start();
     }
+
 
     public native String collectAllLinkerData();
     public native String exportDataToFile(String path);

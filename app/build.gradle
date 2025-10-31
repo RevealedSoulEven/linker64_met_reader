@@ -12,7 +12,7 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0"
-        
+
         externalNativeBuild {
             cmake {
                 cppFlags '-std=c++17'
@@ -23,9 +23,10 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    
+
     externalNativeBuild {
         cmake {
             path file('src/main/cpp/CMakeLists.txt')
